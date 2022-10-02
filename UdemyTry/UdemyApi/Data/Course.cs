@@ -9,5 +9,6 @@ namespace UdemyApi.Data
 
         [ForeignKey (nameof(DepartmentId))]
         public int DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }
