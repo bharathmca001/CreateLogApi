@@ -1,6 +1,10 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
+using UdemyApi.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("databaseConnection");
 
 // Add services to the container.
 
@@ -13,6 +17,8 @@ builder.Services.AddCors(options => {
 });
 
 builder.Host.UseSerilog((ctx , lc)=>lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
+
+builder.Services.AddDbContext<UniversityDbContext>(options => options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 
