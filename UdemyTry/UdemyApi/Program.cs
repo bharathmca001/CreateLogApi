@@ -1,6 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using UdemyApi.Configration;
+using UdemyApi.Contract;
 using UdemyApi.Data;
+using UdemyApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +22,13 @@ builder.Services.AddCors(options => {
 builder.Host.UseSerilog((ctx , lc)=>lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.AddDbContext<UniversityDbContext>(options => options.UseSqlServer(connectionString));
+
+builder.Services.AddAutoMapper(typeof(AutoMaperConfig));
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+
+
 
 var app = builder.Build();
 

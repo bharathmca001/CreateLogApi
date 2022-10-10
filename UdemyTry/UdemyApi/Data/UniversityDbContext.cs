@@ -29,7 +29,19 @@ namespace UdemyApi.Data
                     DepartmentId = 1,
                     Id=1,
                     Name="MCA"
-                }
+                },
+                 new Course
+                 {
+                     DepartmentId = 1,
+                     Id = 2,
+                     Name = "DA"
+                 },
+                  new Course
+                  {
+                      DepartmentId = 1,
+                      Id = 3,
+                      Name = "CS"
+                  }
                 ) ;
         }
     }

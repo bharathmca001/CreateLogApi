@@ -37,6 +37,8 @@ namespace UdemyApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DepartmentId");
+
                     b.ToTable("Courses");
 
                     b.HasData(
@@ -45,6 +47,18 @@ namespace UdemyApi.Migrations
                             Id = 1,
                             DepartmentId = 1,
                             Name = "MCA"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DepartmentId = 1,
+                            Name = "DA"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DepartmentId = 1,
+                            Name = "CS"
                         });
                 });
 
@@ -74,6 +88,22 @@ namespace UdemyApi.Migrations
                             Id = 2,
                             Name = "Information Technology"
                         });
+                });
+
+            modelBuilder.Entity("UdemyApi.Data.Course", b =>
+                {
+                    b.HasOne("UdemyApi.Data.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("UdemyApi.Data.Department", b =>
+                {
+                    b.Navigation("Courses");
                 });
 #pragma warning restore 612, 618
         }
